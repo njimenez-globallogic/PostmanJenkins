@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "341b94a7-fb2a-4a15-969a-2c5d5c347ae9",
+		"name": "CPA Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20378810"
+	},
+	"item": [
+		{
+			"name": "PostUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"var jsonData = JSON.parse(responseBody);\r",
+							"\r",
+							"pm.collectionVariables.set(\"resourceId\", jsonData.id);\r",
+							"pm.test(\"valueChecks\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"resourceName\"));\r",
+							"    pm.expect(jsonData.gender).to.eql(pm.collectionVariables.get(\"resourceGender\"));\r",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"resourceEmail\"));\r",
+							"    pm.expect(jsonData.status).to.eql(pm.collectionVariables.get(\"resourceStatus\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ce99d20259931659e3dfa638cc0ed174640b47db22fb6e88bc626e6b98c912a7",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{resourceName}}",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{resourceEmail}}",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "{{resourceStatus}}",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "{{resourceGender}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"get Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ce99d20259931659e3dfa638cc0ed174640b47db22fb6e88bc626e6b98c912a7",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users?id={{resourceId}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{resourceId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PutUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"valueChecks\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"resourceName\"));\r",
+							"    pm.expect(jsonData.gender).to.eql(pm.collectionVariables.get(\"resourceGender\"));\r",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"resourceEmail2\"));\r",
+							"    pm.expect(jsonData.status).to.eql(pm.collectionVariables.get(\"resourceStatus\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ce99d20259931659e3dfa638cc0ed174640b47db22fb6e88bc626e6b98c912a7",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{resourceName}}",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "{{resourceGender}}",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{resourceEmail2}}",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "{{resourceStatus}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{resourceId}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{resourceId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUsers2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"get Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ce99d20259931659e3dfa638cc0ed174640b47db22fb6e88bc626e6b98c912a7",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users?id={{resourceId}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{resourceId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PatchUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"valueChecks\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"resourceName\"));\r",
+							"    pm.expect(jsonData.gender).to.eql(pm.collectionVariables.get(\"resourceGender\"));\r",
+							"    pm.expect(jsonData.email).to.eql(pm.collectionVariables.get(\"resourceEmail\"));\r",
+							"    pm.expect(jsonData.status).to.eql(pm.collectionVariables.get(\"resourceStatus\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ce99d20259931659e3dfa638cc0ed174640b47db22fb6e88bc626e6b98c912a7",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "{{resourceEmail}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{resourceId}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{resourceId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ce99d20259931659e3dfa638cc0ed174640b47db22fb6e88bc626e6b98c912a7",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://gorest.co.in/public/v2/users/{{resourceId}}",
+					"protocol": "https",
+					"host": [
+						"gorest",
+						"co",
+						"in"
+					],
+					"path": [
+						"public",
+						"v2",
+						"users",
+						"{{resourceId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "resourceName",
+			"value": "Vanstar",
+			"type": "string"
+		},
+		{
+			"key": "resourceEmail",
+			"value": "test@test.com",
+			"type": "string"
+		},
+		{
+			"key": "resourceGender",
+			"value": "male",
+			"type": "string"
+		},
+		{
+			"key": "resourceStatus",
+			"value": "active",
+			"type": "string"
+		},
+		{
+			"key": "resourceId",
+			"value": ""
+		},
+		{
+			"key": "resourceEmail2",
+			"value": "test2@test.com",
+			"type": "string"
+		}
+	]
+}
